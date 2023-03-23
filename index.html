@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/davacad_7/notizblock/styles/style.css" />
+    <link rel="stylesheet" href="/davacad_7/notizblock/fonts/font/font.css" />
+    <link rel="stylesheet" href="/davacad_7/notizblock/fonts/fontawesome/css/all.css" />
+    <script src="/davacad_7/notizblock/scripts/script.js"></script>
+    <meta name="description" content="" />
+    <title>Notizblock</title>
+
+    <link rel="stylesheet" href="/davacad_7/notizblock/templates/header.html">
+
+</head>
+
+<body id="start" onload="init()">
+    <header class="header" w3-include-html="/davacad_7/notizblock/templates/header.html"></header>
+    <main class="spacing-layer">
+
+        <menu>
+            <div id="menu-icons">
+                <div onclick="openNotes()" class="menu-icon-text">
+                    <img src="img/lightbulb-regular.svg" alt="Show open notes">
+                    <a class="d-none" href="#index">Notes</a>
+
+                </div>
+                <div onclick="showArchivedNotes()" class="menu-icon-text">
+                    <img src="img/circle-down-regular.svg" alt="Show archive">
+                    <a class="d-none" href="#archive">Archive</a>
+                </div>
+                <div onclick="showTrashedNotes()" class="menu-icon-text">
+                    <img src="img/trash-can-regular.svg" alt="Shwo trash">
+                    <a class="d-none" href="#trash">Trash</a>
+                </div>
+            </div>
+
+        </menu>
+
+        <section id="notes">
+            <div class="notes-position">
+                <div class="text">
+                    <textarea id="autoresizing" placeholder="Write your notes..." class="autosize"></textarea>
+
+                    <div class="icons">
+                        <div><img onclick="clearTextArea()" src="/davacad_7/notizblock/img/square-minus-regular.svg"
+                                alt="Clear Task">
+                        </div>
+                        <div><img onclick="addNote()" src="/davacad_7/notizblock/img//floppy-disk-regular.svg"
+                                alt="Save Task">
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="popup-background d-none" id="popup-background"></div>
+            <div class="popup d-none" id="popup">
+                <p>Do you want to permanently delete this note?</p>
+                <button id="confirm" class="button-style" type="button">Ja</button>
+                <button id="reject" class="button-style" type="button">Nein</button>
+            </div>
+
+            <div id="notes-area">
+
+                <div id="pinned-note">
+
+                </div>
+
+                <div id="mynotes">
+
+                </div>
+
+                <div id="archived-notes">
+
+                </div>
+
+                <div id="trashed-notes">
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <footer w3-include-html="/davacad_7/notizblock/templates/footer.html"></footer>
+    <script src="/davacad_7/notizblock/scripts/eventhandling.js"></script>
+</body>
+
+</html>
