@@ -106,14 +106,14 @@ function showNotes() {
                             <div class="content">${note[i]}</div>
                             <div class="dialog">
                                 <div onclick="pinNote(${i})"><img
-                                        src="/davacad_7/notizblock/img/bookmark-regular-not-active.svg" title="Pin Note" alt="Pin Note">
+                                        src="/notepad/img/bookmark-regular-not-active.svg" title="Pin Note" alt="Pin Note">
                                 </div>
-                                <div><img src="/davacad_7/notizblock/img/pen-to-square-solid.svg" title="Edit Note" alt="Edit Note">
+                                <div><img src="/notepad/img/pen-to-square-solid.svg" title="Edit Note" alt="Edit Note">
                                 </div>
-                                <div onclick="archiveNote(${i})"><img src="/davacad_7/notizblock/img/circle-down-regular.svg" title="Archive Note" alt="Archive Note">
+                                <div onclick="archiveNote(${i})"><img src="/notepad/img/circle-down-regular.svg" title="Archive Note" alt="Archive Note">
                                 </div>
                                 <div onclick="moveToTrashOpen(${i})"><img
-                                        src="/davacad_7/notizblock/img/trash-can-regular.svg" title="Move to Trash" alt="Trash Note">
+                                        src="/notepad/img/trash-can-regular.svg" title="Move to Trash" alt="Trash Note">
                                 </div>
 
                             </div>
@@ -152,12 +152,12 @@ function showPinnedNotes() {
                         </div>
                          <div class="dialog">
                                 <div onclick="unPinNote(${i})"><img
-                                        src="/davacad_7/notizblock/img/bookmark-solid.svg" title="Pin Note" alt="Pin Note">
+                                        src="/notepad/img/bookmark-solid.svg" title="Pin Note" alt="Pin Note">
                                 </div>
-                                <div><img src="/davacad_7/notizblock/img/pen-to-square-solid.svg" title="Edit Note" alt="Edit Note">
+                                <div><img src="/notepad/img/pen-to-square-solid.svg" title="Edit Note" alt="Edit Note">
                                 </div>
                                 <div onclick="moveToTrashPin(${i})"><img
-                                        src="/davacad_7/notizblock/img/trash-can-regular.svg" title="Move to Trash" alt="Trash Note">
+                                        src="/notepad/img/trash-can-regular.svg" title="Move to Trash" alt="Trash Note">
                                 </div>
 
                             </div>
@@ -212,11 +212,11 @@ function showArchivedNotes() {
                          <div class="dialog">
 
                                 <div onclick="unSetArchiveNote(${i})"><img
-                                        src="/davacad_7/notizblock/img/lightbulb-regular.svg" title="Restore Note" alt="Restore Note">
+                                        src="/notepad/img/lightbulb-regular.svg" title="Restore Note" alt="Restore Note">
                                 </div>
 
                                 <div onclick="moveToTrashArchived(${i})"><img
-                                        src="/davacad_7/notizblock/img/trash-can-regular.svg" title="Move to Trash" alt="Trash Note">
+                                        src="/notepad/img/trash-can-regular.svg" title="Move to Trash" alt="Trash Note">
                                 </div>
 
                             </div>
@@ -267,7 +267,7 @@ function showTrashedNotes() {
                          <div class="dialog">
 
                                 <div onclick="togglePopup(${i})"><img
-                                        src="/davacad_7/notizblock/img/trash-can-regular.svg" alt="Trash Note">
+                                        src="/notepad/img/trash-can-regular.svg" alt="Trash Note">
                                 </div>
 
                             </div>
