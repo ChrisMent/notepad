@@ -1,4 +1,4 @@
-//! Aktive Kategorie markieren
+//! Aktive Kategorie markieren DESKTOP
 
 
 // Die Variable "icons" speichert das Element mit der ID "menu-icons". 
@@ -26,6 +26,41 @@ for (let i = 0; i < icon.length; i++) {
         this.className += " active";
     });
 }
+
+//! Aktive Kategorie markieren MOBILE
+
+
+
+
+//! MENÜ: Mobile Menu einblenden wenn alles geladen ist
+
+function toggleMenuMobile() {
+    let elements = document.getElementById('menu-icons-mobile');
+    if (elements.classList.contains('visible')) {
+        elements.classList.remove('visible');
+        elements.classList.add('d-none');
+    } else {
+        elements.classList.add('visible');
+        elements.classList.remove('d-none');
+
+        // Event-Listener hinzufügen, nachdem das Menü sichtbar gemacht wurde
+        let iconMobile = elements.querySelectorAll(".menu-icon-text-mobile");
+
+        for (let i = 0; i < iconMobile.length; i++) {
+            iconMobile[i].addEventListener("click", function () {
+                let currentActive = elements.querySelector(".active");
+
+                if (currentActive) {
+                    currentActive.classList.remove("active");
+                }
+
+                this.classList.add("active");
+            });
+        }
+    }
+}
+
+
 
 //! Textarea in dynamisch in der Höhe anpassen
 
@@ -60,9 +95,9 @@ textArea.addEventListener("click", function () {
 
 //! Der blur-Event wird auf das Element "textArea" definiert und die Höhe des Elements auf 62px gesetzt.
 
-textArea.addEventListener("blur", function () {
-    textArea.style.height = "62px";
-});
+// textArea.addEventListener("blur", function () {
+//     textArea.style.height = "62px";
+// });
 
 //! Content unter Textarea dynamisch verschieben
 

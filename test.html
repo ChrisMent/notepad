@@ -7,75 +7,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/davacad_7/notizblock/styles/style.css">
     <link rel="stylesheet" href="/davacad_7/notizblock/styles/test.css">
+    <link rel="stylesheet" href="/notepad//fonts/fontawesome/css/all.css" />
     <script src="/davacad_7/notizblock/scripts/script.js"></script>
-    <title>Document</title>
+    <title>Test</title>
+    <style>
+        .active {
+            border: 3px solid red;
+        }
+
+        .menu-icon-text-mobile {
+
+            margin-right: 30px;
+
+
+        }
+
+        .menu-icon-text-mobile img {
+            padding: 10px;
+            height: 48px;
+            width: 48px;
+
+
+        }
+
+
+        #menu-icons-mobile {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            flex-direction: row;
+
+        }
+    </style>
 </head>
 
-<style>
-
-
-
-</style>
-
 <body>
+    <div id="menu-icons-mobile">
 
-    <menu>
-        <div id="menu-icons" class="not-expanded">
-            <div class="menu-icon-text">
-                <img src="img/lightbulb-regular.svg" alt="Show Notes">
-                <a class="d-none" href="#index">Notes</a>
-
-            </div>
-            <div class="menu-icon-text">
-                <img src="img/circle-down-regular.svg" alt="Remove to archive">
-                <a class="d-none" href="#archive">Archive</a>
-            </div>
-            <div class="menu-icon-text">
-                <img src="img/trash-can-regular.svg" alt="Remove to trash">
-                <a class="d-none" href="#trash">Trash</a>
-            </div>
+        <div class="menu-icon-text-mobile">
+            <img src="img/lightbulb-regular.svg" alt="Show open notes">
+        </div>
+        <div class="menu-icon-text-mobile">
+            <img src="img/circle-down-regular.svg" alt="Show archive">
+        </div>
+        <div class="menu-icon-text-mobile">
+            <img src="img/trash-can-regular.svg" alt="Shwo trash">
         </div>
 
-        <button onclick="toggleClass()">Klick</button>
-
-    </menu>
-
-
-
-
-
+    </div>
 
     <script>
-        function toggleClass() {
-            // Es wird nach allen Elementen gesucht, die die Klasse 'menu-icon-text' haben
-            let elements = document.querySelectorAll('.menu-icon-text');
-            // Es wird eine Schleife erstellt, die jedes Element durchläuft
-            elements.forEach((element) => {
-                // Es wird nach dem ersten Link-Element innerhalb eines Elements mit der Klasse 'menu-icon-text' gesucht.
-                let a = element.querySelector('a');
-                if (a.classList.contains('d-none')) {
-                    a.classList.remove('d-none');
-                } else {
-                    a.classList.add('d-none');
-                }
-            });
-        }
+        document.addEventListener("DOMContentLoaded", function () {
+            let iconMobile = document.querySelectorAll(".menu-icon-text-mobile");
 
-        let icons = document.getElementById("menu-icons");
-        let icon = icons.getElementsByClassName("menu-icon-text");
+            for (let i = 0; i < iconMobile.length; i++) {
+                iconMobile[i].addEventListener("click", function () {
+                    let currentActive = document.querySelector(".menu-icon-text-mobile.active");
 
+                    if (currentActive) {
+                        currentActive.classList.remove("active");
+                    }
 
-        for (let i = 0; i < icon.length; i++) {
-            icon[i].addEventListener("click", function () {
-                let current = document.getElementsByClassName("active");
-                if (current.length > 0) {
-                    current[0].className = current[0].className.replace(" active", "");
-                }
-                this.className += " active";
-            });
-        }
+                    this.classList.add("active");
+                });
+            }
+        });
     </script>
-
 </body>
 
 </html>

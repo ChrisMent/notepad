@@ -36,7 +36,7 @@ let trash = [];
 
 //! MENÜ: Den Text bei den Kategoriensymbolen auf und zu
 
-function toggleMenu() {
+function toggleMenuDesktop() {
 
     // Es wird nach allen Elementen gesucht, die die Klasse 'menu-icon-text' haben
     let elements = document.querySelectorAll('.menu-icon-text');
@@ -71,6 +71,7 @@ function addNote() {
     //Nur wenn noteText nicht leer ist, wird der Inhalt von noteString der Variable note hinzugefügt und die Funktion showNotes() aufgerufen
     if (noteText != '') {
         note.push(noteString);
+        saveNotes();
         showNotes();
     }
 
@@ -82,37 +83,46 @@ function showNotes() {
     let myNotes = document.getElementById('mynotes')
     let filter1 = document.getElementById('archived-notes')
     let filter2 = document.getElementById('trashed-notes')
-    let locSto = localStorage.getItem('activeNote')
+    let locStoActive = localStorage.getItem('activeNote')
+    let locStoPin = localStorage.getItem('pinnedNote')
     filter1.innerHTML = ''
     filter2.innerHTML = ''
     myNotes.innerHTML = '';
-    if (locSto == '[]') {
-        myNotes.innerHTML = `    <div class="message-container">
-        <span class="emoji">👋</span>
-        <p class="message"> You currently have no open notes!</p>
-    </div>`
+    if (locStoActive == '[]' && locStoPin == '[]') {
+        myNotes.innerHTML = notesMessage()
     }
     else {
 
-        for (let i = 0; i < note.length; i++) {
-            myNotes.innerHTML += `
+        for (let iNote = 0; iNote < note.length; iNote++) {
+            myNotes.innerHTML += generateNoteText(iNote)
+        }
+    }
+
+    document.getElementById('autoresizing').value = ''
+    saveNotes()
+
+}
+
+function generateNoteText(iNote) {
+
+    return `
 
                                 <br>
-                <div id="open-notes-${i}" class="note-box">
+                <div id="open-notes-${iNote}" class="note-box">
 
                     <label>CATEGORY: OPEN</label>
                     <div>
                         <div class="notes">
-                            <div class="content">${note[i]}</div>
+                            <div class="content">${note[iNote]}</div>
                             <div class="dialog">
-                                <div onclick="pinNote(${i})"><img
+                                <div onclick="pinNote(${iNote})"><img
                                         src="/notepad/img/bookmark-regular-not-active.svg" title="Pin Note" alt="Pin Note">
                                 </div>
                                 <div><img src="/notepad/img/pen-to-square-solid.svg" title="Edit Note" alt="Edit Note">
                                 </div>
-                                <div onclick="archiveNote(${i})"><img src="/notepad/img/circle-down-regular.svg" title="Archive Note" alt="Archive Note">
+                                <div onclick="archiveNote(${iNote})"><img src="/notepad/img/circle-down-regular.svg" title="Archive Note" alt="Archive Note">
                                 </div>
-                                <div onclick="moveToTrashOpen(${i})"><img
+                                <div onclick="moveToTrashOpen(${iNote})"><img
                                         src="/notepad/img/trash-can-regular.svg" title="Move to Trash" alt="Trash Note">
                                 </div>
 
@@ -124,13 +134,18 @@ function showNotes() {
 
                 </div>
                 `;
-        }
-    }
 
-    document.getElementById('autoresizing').value = ''
-    saveNotes();
 }
 
+function notesMessage() {
+    return `    
+        <div class="message-container">
+            <span class="emoji">👋</span>
+            <p class="message"> You currently have no open notes!</p>
+        </div>
+    `;
+
+}
 
 //! NOTIZ: Angepinnte Notiz anzeigen
 
@@ -141,22 +156,31 @@ function showPinnedNotes() {
     filter1.innerHTML = ''
     filter2.innerHTML = ''
     pinNotes.innerHTML = ''
-    for (let i = 0; i < pinnedNote.length; i++) {
-        pinNotes.innerHTML += `
+    for (let iPinned = 0; iPinned < pinnedNote.length; iPinned++) {
+        pinNotes.innerHTML += generatePinnedNoteText(iPinned)
+
+    }
+    document.getElementById('autoresizing').value = ''
+    saveNotes()
+}
+
+function generatePinnedNoteText(iPinned) {
+
+    return `
         <br>
                 <label>CATEGORY: PINNED</label>
                 <div> 
                     <div class="notes ispinned">
                         <div class="content">
-                        ${pinnedNote[i]}
+                        ${pinnedNote[iPinned]}
                         </div>
                          <div class="dialog">
-                                <div onclick="unPinNote(${i})"><img
+                                <div onclick="unPinNote(${iPinned})"><img
                                         src="/notepad/img/bookmark-solid.svg" title="Pin Note" alt="Pin Note">
                                 </div>
                                 <div><img src="/notepad/img/pen-to-square-solid.svg" title="Edit Note" alt="Edit Note">
                                 </div>
-                                <div onclick="moveToTrashPin(${i})"><img
+                                <div onclick="moveToTrashPin(${iPinned})"><img
                                         src="/notepad/img/trash-can-regular.svg" title="Move to Trash" alt="Trash Note">
                                 </div>
 
@@ -167,11 +191,8 @@ function showPinnedNotes() {
                 </div>
         </div>
 
-`
+`;
 
-    }
-    document.getElementById('autoresizing').value = ''
-    saveNotes();
 }
 
 function openNotes() {
@@ -193,29 +214,37 @@ function showArchivedNotes() {
     filter3.innerHTML = ''
     archivedNotes.innerHTML = ''
     if (locSto == '[]') {
-        archivedNotes.innerHTML = `    <div class="message-container">
-        <span class="emoji">👋</span>
-        <p class="message"> You currently have no open notes!</p>
-    </div>`
+        archivedNotes.innerHTML = archivedMessage()
     }
     else {
-        for (let i = 0; i < archive.length; i++) {
+        for (let iArchived = 0; iArchived < archive.length; iArchived++) {
 
-            archivedNotes.innerHTML += `
+            archivedNotes.innerHTML += generateArchiveText(iArchived)
+
+        }
+        document.getElementById('autoresizing').value = ''
+
+        saveNotes();
+    }
+}
+
+function generateArchiveText(iArchived) {
+
+    return `
         <br>
                 <label>CATEGORY: ARCHIVED</label>
                 <div> 
                     <div class="notes issrchived">
                         <div class="content">
-                        ${archive[i]}
+                        ${archive[iArchived]}
                         </div>
                          <div class="dialog">
 
-                                <div onclick="unSetArchiveNote(${i})"><img
+                                <div onclick="unSetArchiveNote(${iArchived})"><img
                                         src="/notepad/img/lightbulb-regular.svg" title="Restore Note" alt="Restore Note">
                                 </div>
 
-                                <div onclick="moveToTrashArchived(${i})"><img
+                                <div onclick="moveToTrashArchived(${iArchived})"><img
                                         src="/notepad/img/trash-can-regular.svg" title="Move to Trash" alt="Trash Note">
                                 </div>
 
@@ -226,13 +255,16 @@ function showArchivedNotes() {
                 </div>
         </div>
 
-`
+`;
 
-        }
-        document.getElementById('autoresizing').value = ''
+}
 
-        saveNotes();
-    }
+function archivedMessage() {
+    return `    <div class="message-container">
+        <span class="emoji">👋</span>
+        <p class="message"> You currently have no archived notes!</p>
+    </div>`;
+
 }
 
 //! Notizen filtern
@@ -248,25 +280,34 @@ function showTrashedNotes() {
     filter3.innerHTML = ''
     trashedNotes.innerHTML = ''
     if (locSto == '[]') {
-        trashedNotes.innerHTML = `    <div class="message-container">
-        <span class="emoji">👋</span>
-        <p class="message"> You currently have no open notes!</p>
-    </div>`
+        trashedNotes.innerHTML = trashedMessage()
     }
     else {
-        for (let i = 0; i < trash.length; i++) {
+        for (let iTrashed = 0; iTrashed < trash.length; iTrashed++) {
 
-            trashedNotes.innerHTML += `
+            trashedNotes.innerHTML += generateTrashedText(iTrashed)
+
+        }
+        document.getElementById('autoresizing').value = ''
+
+        saveNotes();
+
+    }
+}
+
+function generateTrashedText(iTrashed) {
+
+    return `
         <br>
                 <label>CATEGORY: TRASHED</label>
                 <div> 
                     <div class="notes istrashed">
                         <div class="content">
-                        ${trash[i]}
+                        ${trash[iTrashed]}
                         </div>
                          <div class="dialog">
 
-                                <div onclick="togglePopup(${i})"><img
+                                <div onclick="togglePopup(${iTrashed})"><img
                                         src="/notepad/img/trash-can-regular.svg" alt="Trash Note">
                                 </div>
 
@@ -277,14 +318,16 @@ function showTrashedNotes() {
                 </div>
         </div>
 
-`
+`;
 
-        }
-        document.getElementById('autoresizing').value = ''
+}
 
-        saveNotes();
+function trashedMessage() {
+    return `    <div class="message-container">
+        <span class="emoji">👋</span>
+        <p class="message"> You currently have no trashed notes!</p>
+    </div>`
 
-    }
 }
 
 //! NOTIZ: Notizen speichern
@@ -378,7 +421,7 @@ function unSetArchiveNote(i) {
     let noteText = archive[i];
     note.push(noteText);
     archive.splice(i, 1);
-    showAll();
+    showArchivedNotes();
     saveNotes();
 
 }
@@ -406,8 +449,8 @@ function moveToTrashPin(i) {
 function moveToTrashArchived(i) {
     let noteText = archive[i]
     trash.push(noteText)
-    note.splice(i, 1)
-    showAll();
+    archive.splice(i, 1)
+    showArchivedNotes();
     saveNotes();
 
 }
