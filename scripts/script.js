@@ -376,6 +376,8 @@ function loadArchivedNotes() {
 
 }
 
+onclick="renderBasket()"
+
 function loadTrashedNotes() {
     let trashNote = localStorage.getItem('trashedNote')
     if (trashNote) {
